@@ -1,6 +1,6 @@
 {
-  "name": "chrome-extension-typescript-starter",
-  "version": "1.0.0",
+  "name": "hantranslate.ai",
+  "version": "0.1.0",
   "description": "chrome-extension-typescript-starter",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "npx jest",
     "style": "prettier --write \"src/**/*.{ts,tsx}\""
   },
-  "author": "",
+  "author": "uwoobeat",
   "license": "MIT",
   "repository": {
     "type": "git",
