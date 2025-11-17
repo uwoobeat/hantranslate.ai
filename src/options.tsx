@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
+interface StorageData {
+  favoriteColor: string;
+  likesColor: boolean;
+}
+
 const Options = () => {
   const [color, setColor] = useState<string>("");
   const [status, setStatus] = useState<string>("");
@@ -9,7 +14,7 @@ const Options = () => {
   useEffect(() => {
     // Restores select box and checkbox state using the preferences
     // stored in chrome.storage.
-    chrome.storage.sync.get(
+    chrome.storage.sync.get<StorageData>(
       {
         favoriteColor: "red",
         likesColor: true,
@@ -23,7 +28,7 @@ const Options = () => {
 
   const saveOptions = () => {
     // Saves options to chrome.storage.sync.
-    chrome.storage.sync.set(
+    chrome.storage.sync.set<StorageData>(
       {
         favoriteColor: color,
         likesColor: like,
