@@ -8,12 +8,13 @@
         "sourceMap": false,
         "rootDir": "src",
         "outDir": "dist/js",
-        "noEmitOnError": true,
-        "jsx": "react",
+        "jsx": "react-jsx",
         "typeRoots": [ "node_modules/@types" ],
+        "types": ["chrome", "dom-chromium-ai", "jest"],
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"]
         }
-    }
+    },
+    "exclude": ["node_modules"]
 }
