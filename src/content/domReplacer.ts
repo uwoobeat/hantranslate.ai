@@ -1,19 +1,15 @@
 import type { TranslatedNode } from "@/shared/types";
-import { getTextNodeById } from "./domExtractor";
+import { getElementById } from "./domExtractor";
 
 export function replaceTextNodes(translatedNodes: TranslatedNode[]): number {
   let replacedCount = 0;
 
   for (const { id, translatedText } of translatedNodes) {
-    const textNode = getTextNodeById(id);
+    const element = getElementById(id);
 
-    if (textNode && textNode.parentNode) {
-      // Preserve leading/trailing whitespace from original
-      const original = textNode.textContent || "";
-      const leadingSpace = original.match(/^\s*/)?.[0] || "";
-      const trailingSpace = original.match(/\s*$/)?.[0] || "";
-
-      textNode.textContent = leadingSpace + translatedText + trailingSpace;
+    if (element) {
+      // Replace innerHTML directly (translated text includes inline tags like <code>)
+      element.innerHTML = translatedText;
       replacedCount++;
     }
   }
@@ -22,14 +18,10 @@ export function replaceTextNodes(translatedNodes: TranslatedNode[]): number {
 }
 
 export function replaceTextNodeById(id: string, translatedText: string): boolean {
-  const textNode = getTextNodeById(id);
+  const element = getElementById(id);
 
-  if (textNode && textNode.parentNode) {
-    const original = textNode.textContent || "";
-    const leadingSpace = original.match(/^\s*/)?.[0] || "";
-    const trailingSpace = original.match(/\s*$/)?.[0] || "";
-
-    textNode.textContent = leadingSpace + translatedText + trailingSpace;
+  if (element) {
+    element.innerHTML = translatedText;
     return true;
   }
 

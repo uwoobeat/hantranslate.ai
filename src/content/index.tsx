@@ -5,12 +5,12 @@ import type {
   ReplaceContentMessage,
   PageContentMessage,
 } from "@/shared/messages";
-import { extractTextNodes, clearTextNodeMap } from "./domExtractor";
+import { extractTextNodes, clearElementMap } from "./domExtractor";
 import { replaceTextNodes } from "./domReplacer";
 
 function handleGetPageContent(): PageContentMessage {
   // Clear any previous extraction
-  clearTextNodeMap();
+  clearElementMap();
 
   // Extract text nodes from DOM
   const nodes = extractTextNodes();
