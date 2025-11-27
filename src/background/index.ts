@@ -134,9 +134,7 @@ async function handleStartTranslation(
       status: "translating",
     } as TranslationStatusMessage);
 
-    // Translate all text nodes
-    const translatedNodes: TranslatedNode[] = [];
-
+    // Translate all text nodes and replace immediately
     for (const node of textNodes) {
       const translatedText = await translate(
         node.text,
@@ -151,14 +149,9 @@ async function handleStartTranslation(
         }
       );
 
-      translatedNodes.push({
-        id: node.id,
-        translatedText,
-      });
+      // 번역 완료 즉시 DOM 교체
+      await replacePageContent(tabId, [{ id: node.id, translatedText }]);
     }
-
-    // Replace content on page
-    await replacePageContent(tabId, translatedNodes);
 
     // Update status: completed
     await sendMessageToPopup({
