@@ -18,6 +18,8 @@
     "url": "https://github.com/uwoobeat/hantranslate.ai.git"
   },
   "dependencies": {
+    "@radix-ui/react-progress": "^1.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.554.0",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.17",
     "@types/chrome": "0.1.29",
+    "@types/dom-chromium-ai": "^0.0.11",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
