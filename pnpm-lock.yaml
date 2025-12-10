@@ -36,6 +36,9 @@ importers:
       '@types/chrome':
         specifier: 0.1.29
         version: 0.1.29
+      '@types/dom-chromium-ai':
+        specifier: ^0.0.11
+        version: 0.0.11
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -678,6 +681,9 @@ packages:
 
   '@types/chrome@0.1.29':
     resolution: {integrity: sha512-AMEjLNCFjLWEqXJNbSgZk9+kaC8SX0FOCd46ZZqE2IaCzmeRGbFEhCEbhoV6kzale+WqSeiiqjHgA7Q31shdoA==}
+
+  '@types/dom-chromium-ai@0.0.11':
+    resolution: {integrity: sha512-Li04Mac9ic1vbX/te9re8v1010fh5YB/30dMcJLpIuIyDoT7xE/dIdg9r9UrFZLs5Ztmonb3nP7+LhPpFuHBGw==}
 
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
@@ -3723,6 +3729,8 @@ snapshots:
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.16
+
+  '@types/dom-chromium-ai@0.0.11': {}
 
   '@types/eslint-scope@3.7.7':
     dependencies:
