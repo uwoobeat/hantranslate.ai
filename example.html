@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script type="text/javascript" nonce="a3e7bf0e6a16411aa669c494b53" src="//local.adguard.org?ts=1765369412347&amp;type=content-script&amp;dmn=docs.spring.io&amp;url=https%3A%2F%2Fdocs.spring.io%2Fspring-amqp%2Freference%2Famqp%2Ftransactions.html&amp;app=com.google.Chrome&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="a3e7bf0e6a16411aa669c494b53" src="//local.adguard.org?ts=1765369412347&amp;name=AdGuard%20Extra&amp;type=user-script"></script><script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-domain-script="018ee325-b3a7-7753-937b-b8b3e643b1a7"></script><script>function OptanonWrapper() {}</script><script>function setGTM(w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js"}); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : ""; j.async = true; j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl; f.parentNode.insertBefore(j, f); } if (document.cookie.indexOf("OptanonConsent") > -1 && document.cookie.indexOf("groups=") > -1) { setGTM(window, document, "script", "dataLayer", "GTM-W8CQ8TL"); } else { waitForOnetrustActiveGroups(); } var timer; function waitForOnetrustActiveGroups() { if (document.cookie.indexOf("OptanonConsent") > -1 && document.cookie.indexOf("groups=") > -1) { clearTimeout(timer); setGTM(window, document, "script", "dataLayer", "GTM-W8CQ8TL"); } else { timer = setTimeout(waitForOnetrustActiveGroups, 250); }}</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Transactions :: Spring AMQP</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-amqp/reference/amqp/transactions.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.2">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.17"> 
+    <meta name="version" content="4.0.0">
+    <meta name="component" content="amqp">
+    <meta name="latest-version" content="true">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="amqp" data-version="4.0.0">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring AMQP</span>
+  <span class="version">4.0.0</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../index.html">Spring AMQP</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../whats-new.html">What&#8217;s New</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../introduction/index.html">Introduction</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../introduction/quick-tour.html">Quick Tour for the impatient</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../reference.html">Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../amqp.html">Using Spring AMQP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="abstractions.html">AMQP Abstractions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="connections.html">Connection and Resource Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="custom-client-props.html">Adding Custom Client Connection Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="template.html"><code>AmqpTemplate</code></a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="sending-messages.html">Sending Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="receiving-messages.html">Receiving Messages</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/polling-consumer.html">Polling Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/async-consumer.html">Asynchronous Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/de-batching.html">Batched Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/consumer-events.html">Consumer Events</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/consumerTags.html">Consumer Tags</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven.html">Annotation-driven Listener Endpoints</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/meta.html">Meta-annotations</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/enable.html">Enable Listener Endpoint Annotations</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/conversion.html">Message Conversion for Annotated Methods</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/custom-argument-resolver.html">Adding a Custom <code>HandlerMethodArgumentResolver</code> to @RabbitListener</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/registration.html">Programmatic Endpoint Registration</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/enable-signature.html">Annotated Endpoint Method Signature</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/rabbit-validation.html">@RabbitListener @Payload Validation</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/multiple-queues.html">Listening to Multiple Queues</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/reply.html">Reply Management</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/reply-content-type.html">Reply ContentType</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/method-selection.html">Multi-method Listeners</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/repeatable-rabbit-listener.html"><code>@Repeatable</code> <code>@RabbitListener</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/proxy-rabbitlistener-and-generics.html">Proxy <code>@RabbitListener</code> and Generics</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/error-handling.html">Handling Exceptions</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="receiving-messages/async-annotation-driven/container-management.html">Container Management</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/batch.html">@RabbitListener with Batching</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/using-container-factories.html">Using Container Factories</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/async-returns.html">Asynchronous <code>@RabbitListener</code> Return Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/threading.html">Threading and Asynchronous Consumers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/choose-container.html">Choosing a Container</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/idle-containers.html">Detecting Idle Asynchronous Consumers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/micrometer.html">Micrometer Integration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="receiving-messages/micrometer-observation.html">Micrometer Observation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="containers-and-broker-named-queues.html">Containers and Broker-Named queues</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="message-converters.html">Message Converters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="post-processing.html">Modifying Messages - Compression and More</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="request-reply.html">Request/Reply Messaging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="broker-configuration.html">Configuring the Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="broker-events.html">Broker Event Listener</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="delayed-message-exchange.html">Delayed Message Exchange</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="management-rest-api.html">RabbitMQ REST API</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="exception-handling.html">Exception Handling</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link"  href="transactions.html">Transactions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="containerAttributes.html">Message Listener Container Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="listener-concurrency.html">Listener Concurrency</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="exclusive-consumer.html">Exclusive Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="listener-queues.html">Listener Container Queues</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="resilience-recovering-from-errors-and-broker-failures.html">Resilience: Recovering from Errors and Broker Failures</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="multi-rabbit.html">Multiple Broker (or Cluster) Support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="debugging.html">Debugging</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../stream.html">Using the RabbitMQ Stream Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../rabbitmq-amqp-client.html">RabbitMQ AMQP 1.0 Support</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../logging.html">Logging Subsystem AMQP Appenders</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../sample-apps.html">Sample Applications</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing.html">Testing Support</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../integration-reference.html">Spring Integration - Reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../resources.html">Other Resources</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../further-reading.html">Further Reading</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../appendix/micrometer.html">Micrometer Observation Documentation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../appendix/native.html">Native Images</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Change History</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../appendix/current-release.html">Current Release</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../appendix/previous-whats-new.html">Previous Releases</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-3-1-since-3-0.html">Changes in 3.1 Since 3.0</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-3-0-since-2-4.html">Changes in 3.0 Since 2.4</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-2-4-since-2-3.html">Changes in 2.4 Since 2.3</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-2-3-since-2-2.html">Changes in 2.3 Since 2.2</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-2-2-since-2-1.html">Changes in 2.2 Since 2.1</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-2-1-since-2-0.html">Changes in 2.1 Since 2.0</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-2-0-since-1-7.html">Changes in 2.0 Since 1.7</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-1-7-since-1-6.html">Changes in 1.7 Since 1.6</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-1-6-since-1-5.html">Changes in 1.6 Since 1.5</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-1-5-since-1-4.html">Changes in 1.5 Since 1.4</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-1-4-since-1-3.html">Changes in 1.4 Since 1.3</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-in-1-3-since-1-2.html">Changes in 1.3 Since 1.2</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-to-1-2-since-1-1.html">Changes to 1.2 Since 1.1</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../appendix/previous-whats-new/changes-to-1-1-since-1-0.html">Changes to 1.1 Since 1.0</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Transactions"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="https://github.com/spring-projects/spring-amqp/blob/v4.0.0/src/reference/antora/modules/ROOT/pages/amqp/transactions.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+              <a href="https://github.com/spring-projects/spring-amqp" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-amqp">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Spring AMQP</a></li>
+      <li><a href="../reference.html">Reference</a></li>
+      <li><a href="../amqp.html">Using Spring AMQP</a></li>
+      <li><a href="transactions.html">Transactions</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Transactions</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Spring Rabbit framework has support for automatic transaction management in the synchronous and asynchronous use cases with a number of different semantics that can be selected declaratively, as is familiar to existing users of Spring transactions.
+This makes many if not most common messaging patterns easy to implement.</p>
+</div>
+<div class="paragraph">
+<p>There are two ways to signal the desired transaction semantics to the framework.
+In both the <code>RabbitTemplate</code> and <code>SimpleMessageListenerContainer</code>, there is a flag <code>channelTransacted</code> which, if <code>true</code>, tells the framework to use a transactional channel and to end all operations (send or receive) with a commit or rollback (depending on the outcome), with an exception signaling a rollback.
+Another signal is to provide an external transaction with one of Spring&#8217;s <code>PlatformTransactionManager</code> implementations as a context for the ongoing operation.
+If there is already a transaction in progress when the framework is sending or receiving a message, and the <code>channelTransacted</code> flag is <code>true</code>, the commit or rollback of the messaging transaction is deferred until the end of the current transaction.
+If the <code>channelTransacted</code> flag is <code>false</code>, no transaction semantics apply to the messaging operation (it is auto-acked).</p>
+</div>
+<div class="paragraph">
+<p>The <code>channelTransacted</code> flag is a configuration time setting.
+It is declared and processed once when the AMQP components are created, usually at application startup.
+The external transaction is more dynamic in principle because the system responds to the current thread state at runtime.
+However, in practice, it is often also a configuration setting, when the transactions are layered onto an application declaratively.</p>
+</div>
+<div class="paragraph">
+<p>For synchronous use cases with <code>RabbitTemplate</code>, the external transaction is provided by the caller, either declaratively or imperatively according to taste (the usual Spring transaction model).
+The following example shows a declarative approach (usually preferred because it is non-invasive), where the template has been configured with <code>channelTransacted=true</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Transactional
+public void doSomething() {
+    String incoming = rabbitTemplate.receiveAndConvert();
+    // do some more database processing...
+    String outgoing = processInDatabaseAndExtractReply(incoming);
+    rabbitTemplate.convertAndSend(outgoing);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, a <code>String</code> payload is received, converted, and sent as a message body inside a method marked as <code>@Transactional</code>.
+If the database processing fails with an exception, the incoming message is returned to the broker, and the outgoing message is not sent.
+This applies to any operations with the <code>RabbitTemplate</code> inside a chain of transactional methods (unless, for instance, the <code>Channel</code> is directly manipulated to commit the transaction early).</p>
+</div>
+<div class="paragraph">
+<p>For asynchronous use cases with <code>SimpleMessageListenerContainer</code>, if an external transaction is needed, it has to be requested by the container when it sets up the listener.
+To signal that an external transaction is required, the user provides an implementation of <code>PlatformTransactionManager</code> to the container when it is configured.
+The following example shows how to do so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class ExampleExternalTransactionAmqpConfiguration {
+
+    @Bean
+    public SimpleMessageListenerContainer messageListenerContainer() {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(rabbitConnectionFactory());
+        container.setTransactionManager(transactionManager());
+        container.setChannelTransacted(true);
+        container.setQueueName("some.queue");
+        container.setMessageListener(exampleListener());
+        return container;
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, the transaction manager is added as a dependency injected from another bean definition (not shown), and the <code>channelTransacted</code> flag is also set to <code>true</code>.
+The effect is that if the listener fails with an exception, the transaction is rolled back, and the message is also returned to the broker.
+Significantly, if the transaction fails to commit (for example, because of
+a database constraint error or connectivity problem), the AMQP transaction is also rolled back, and the message is returned to the broker.
+This is sometimes known as a &#8220;Best Efforts 1 Phase Commit&#8221;, and is a very powerful pattern for reliable messaging.
+If the <code>channelTransacted</code> flag was set to <code>false</code> (the default) in the preceding example, the external transaction would still be provided for the listener, but all messaging operations would be auto-acked, so the effect is to commit the messaging operations even on a rollback of the business operation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conditional-rollback"><a class="anchor" href="#conditional-rollback"></a>Conditional Rollback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prior to version 1.6.6, adding a rollback rule to a container&#8217;s <code>transactionAttribute</code> when using an external transaction manager (such as JDBC) had no effect.
+Exceptions always rolled back the transaction.</p>
+</div>
+<div class="paragraph">
+<p>Also, when using a <a href="https://docs.spring.io/spring-framework/reference/7.0/data-access/transaction/declarative.html">transaction advice</a> in the container&#8217;s advice chain, conditional rollback was not very useful, because all listener exceptions are wrapped in a <code>ListenerExecutionFailedException</code>.</p>
+</div>
+<div class="paragraph">
+<p>The first problem has been corrected, and the rules are now applied properly.
+Further, the <code>ListenerFailedRuleBasedTransactionAttribute</code> is now provided.
+It is a subclass of <code>RuleBasedTransactionAttribute</code>, with the only difference being that it is aware of the <code>ListenerExecutionFailedException</code> and uses the cause of such exceptions for the rule.
+This transaction attribute can be used directly in the container or through a transaction advice.</p>
+</div>
+<div class="paragraph">
+<p>The following example uses this rule:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public AbstractMessageListenerContainer container() {
+    ...
+    container.setTransactionManager(transactionManager);
+    RuleBasedTransactionAttribute transactionAttribute =
+        new ListenerFailedRuleBasedTransactionAttribute();
+    transactionAttribute.setRollbackRules(Collections.singletonList(
+        new NoRollbackRuleAttribute(DontRollBackException.class)));
+    container.setTransactionAttribute(transactionAttribute);
+    ...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transaction-rollback"><a class="anchor" href="#transaction-rollback"></a>A note on Rollback of Received Messages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AMQP transactions apply only to messages and acks sent to the broker.
+Consequently, when there is a rollback of a Spring transaction and a message has been received, Spring AMQP has to not only rollback the transaction but also manually reject the message (sort of a nack, but that is not what the specification calls it).
+The action taken on message rejection is independent of transactions and depends on the <code>defaultRequeueRejected</code> property (default: <code>true</code>).
+For more information about rejecting failed messages, see <a href="resilience-recovering-from-errors-and-broker-failures.html#async-listeners" class="xref page">Message Listeners and the Asynchronous Case</a>.</p>
+</div>
+<div class="paragraph">
+<p>For more information about RabbitMQ transactions and their limitations, see <a href="https://www.rabbitmq.com/semantics.html">RabbitMQ Broker Semantics</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Prior to RabbitMQ 2.7.0, such messages (and any that are unacked when a channel is closed or aborts) went to the back of the queue on a Rabbit broker.
+Since 2.7.0, rejected messages go to the front of the queue, in a similar manner to JMS rolled back messages.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Previously, message requeue on transaction rollback was inconsistent between local transactions and when a <code>TransactionManager</code> was provided.
+In the former case, the normal requeue logic (<code>AmqpRejectAndDontRequeueException</code> or <code>defaultRequeueRejected=false</code>) applied (see <a href="resilience-recovering-from-errors-and-broker-failures.html#async-listeners" class="xref page">Message Listeners and the Asynchronous Case</a>).
+With a transaction manager, the message was unconditionally requeued on rollback.
+Starting with version 2.0, the behavior is consistent and the normal requeue logic is applied in both cases.
+To revert to the previous behavior, you can set the container&#8217;s <code>alwaysRequeueWithTxManagerRollback</code> property to <code>true</code>.
+See <a href="containerAttributes.html" class="xref page">Message Listener Container Configuration</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-rabbittransactionmanager"><a class="anchor" href="#using-rabbittransactionmanager"></a>Using <code>RabbitTransactionManager</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://docs.spring.io/spring-amqp/docs/4.0.0/api/org/springframework/amqp/rabbit/transaction/RabbitTransactionManager.html" class="apiref"><code>RabbitTransactionManager</code></a> is an alternative to executing Rabbit operations within, and synchronized with, external transactions.
+This transaction manager is an implementation of the <a href="https://docs.spring.io/spring-framework/docs/7.0.0/javadoc-api/org/springframework/transaction/PlatformTransactionManager.html" class="apiref"><code>PlatformTransactionManager</code></a> interface and should be used with a single Rabbit <code>ConnectionFactory</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This strategy is not able to provide XA transactions&#8201;&#8212;&#8201;for example, in order to share transactions between messaging and database access.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Application code is required to retrieve the transactional Rabbit resources through <code>ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactory, boolean)</code> instead of a standard <code>Connection.createChannel()</code> call with subsequent channel creation.
+When using Spring AMQP&#8217;s <a href="https://docs.spring.io/spring-amqp/docs/4.0.0/api/org/springframework/amqp/rabbit/core/RabbitTemplate.html" class="apiref"><code>RabbitTemplate</code></a>, it will autodetect a thread-bound Channel and automatically participate in its transaction.</p>
+</div>
+<div class="paragraph">
+<p>With Java Configuration, you can setup a new RabbitTransactionManager by using the following bean:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public RabbitTransactionManager rabbitTransactionManager() {
+    return new RabbitTransactionManager(connectionFactory);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you prefer XML configuration, you can declare the following bean in your XML Application Context file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;bean id="rabbitTxManager"
+      class="org.springframework.amqp.rabbit.transaction.RabbitTransactionManager"&gt;
+    &lt;property name="connectionFactory" ref="connectionFactory"/&gt;
+&lt;/bean&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tx-sync"><a class="anchor" href="#tx-sync"></a>Transaction Synchronization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Synchronizing a RabbitMQ transaction with some other (e.g. DBMS) transaction provides "Best Effort One Phase Commit" semantics.
+It is possible that the RabbitMQ transaction fails to commit during the after completion phase of transaction synchronization.
+This is logged by the <code>spring-tx</code> infrastructure as an error, but no exception is thrown to the calling code.
+Starting with version 2.3.10, you can call <code>ConnectionUtils.checkAfterCompletion()</code> after the transaction has committed on the same thread that processed the transaction.
+It will simply return if no exception occurred; otherwise it will throw an <code>AfterCompletionFailedException</code> which will have a property representing the synchronization status of the completion.</p>
+</div>
+<div class="paragraph">
+<p>Enable this feature by calling <code>ConnectionFactoryUtils.enableAfterCompletionFailureCapture(true)</code>; this is a global flag and applies to all threads.</p>
+</div>
+</div>
+</div>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+
+                  <ul class="nav-versions">
+                      <li class="component">
+                        <div>
+                          <a class="title" href="../index.html">Spring AMQP</a>
+                        </div>                        <div class="version-item is-active">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Stable
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="../index.html">
+      4.0.0
+    </a>
+  </li>
+  <li class="version">
+    <a href="../3.2/index.html">
+      3.2.8
+    </a>
+  </li>
+  <li class="version">
+    <a href="../3.1/index.html">
+      3.1.12
+    </a>
+  </li>
+</ul>                        </div>
+                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Snapshot
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="../4.0-SNAPSHOT/index.html">
+      4.0.1-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="../3.2-SNAPSHOT/index.html">
+      3.2.9-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="../3.1-SNAPSHOT/index.html">
+      3.1.13-SNAPSHOT
+    </a>
+  </li>
+</ul>                        </div>
+                        
+                      </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="4.0.0" data-page-component="amqp"></script>
+  
+</body>
+</html>
