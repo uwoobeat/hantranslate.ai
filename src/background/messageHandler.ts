@@ -18,6 +18,10 @@ export async function handleMessage(
     return await handleTranslation();
   }
 
+  if (message.type === "TRANSLATE_TEXT") {
+    return await handleTextTranslation(message.text);
+  }
+
   return { type: "STATUS", status: "error", error: "Unknown message" };
 }
 
@@ -60,6 +64,35 @@ async function handleTranslation(): Promise<BackgroundResponse> {
     return {
       type: "STATUS",
       status: "error",
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+
+async function handleTextTranslation(
+  text: string,
+): Promise<BackgroundResponse> {
+  try {
+    if (!text.trim()) {
+      return {
+        type: "TRANSLATED_TEXT",
+        text: "",
+        error: "텍스트를 입력해주세요",
+      };
+    }
+
+    const detectedLang = await detectLanguage(text);
+
+    if (detectedLang === "ko") {
+      return { type: "TRANSLATED_TEXT", text, error: "이미 한국어입니다" };
+    }
+
+    const translated = await translate(text, detectedLang);
+    return { type: "TRANSLATED_TEXT", text: translated };
+  } catch (error) {
+    return {
+      type: "TRANSLATED_TEXT",
+      text: "",
       error: error instanceof Error ? error.message : "Unknown error",
     };
   }
