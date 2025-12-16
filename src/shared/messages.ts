@@ -3,13 +3,15 @@ import type { TranslationStatus, ModelType } from "./types";
 // Popup → Background
 export type PopupMessage =
   | { type: "START_TRANSLATION" }
-  | { type: "GET_STATUS" };
+  | { type: "GET_STATUS" }
+  | { type: "TRANSLATE_TEXT"; text: string };
 
 // Background → Popup (응답)
 export type BackgroundResponse =
   | { type: "STATUS"; status: TranslationStatus; error?: string }
   | { type: "DOWNLOAD_PROGRESS"; model: ModelType; progress: number }
-  | { type: "LANGUAGE_DETECTED"; language: string };
+  | { type: "LANGUAGE_DETECTED"; language: string }
+  | { type: "TRANSLATED_TEXT"; text: string; error?: string };
 
 // Background → Content
 export type ContentMessage =
