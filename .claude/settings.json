@@ -1,3 +1,14 @@
 {
-  "includeCoAuthoredBy": false
+  "includeCoAuthoredBy": false,
+  "extraKnownMarketplaces": {
+    "uwoobeat-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "uwoobeat/claude-commands-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "common-tools@uwoobeat-marketplace": true
+  }
 }
